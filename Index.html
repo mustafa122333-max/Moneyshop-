@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MONEYSHOP | القمة في التحويلات المالية</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-blue: #0c2340;
+      --brand-gold: #b39247;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8fafc;
+      color: #0c2340;
+      overflow-x: hidden;
+    }
+    .font-numbers { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mesh-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #f8fafc;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(179, 146, 71, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(12, 35, 64, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(179, 146, 71, 0.05) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(12, 35, 64, 0.05) 0px, transparent 50%);
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .premium-shadow {
+      box-shadow: 0 30px 60px -12px rgba(12, 35, 64, 0.08), 0 18px 36px -18px rgba(0, 0, 0, 0.03);
+    }
+    .scan-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #b39247, transparent);
+      position: absolute;
+      width: 100%;
+      z-index: 20;
+      animation: scan 3s linear infinite;
+    }
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; }
+    }
+    @keyframes flash-green {
+      0%, 100% { background-color: white; } 50% { background-color: rgba(16, 185, 129, 0.1); }
+    }
+    .animate-flash-green { animation: flash-green 0.8s ease-out; }
+    @keyframes flash-red {
+      0%, 100% { background-color: white; } 50% { background-color: rgba(244, 63, 94, 0.1); }
+    }
+    .animate-flash-red { animation: flash-red 0.8s ease-out; }
+    @keyframes pulse-strong {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(179, 146, 71, 0.4); }
+      50% { transform: scale(1.15); box-shadow: 0 0 0 10px rgba(179, 146, 71, 0); }
+    }
+    .animate-pulse-strong { animation: pulse-strong 2s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+    [data-tailwind-hidden] { display: none !important; }
+    .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .zoom-in-95 { animation: zoomIn95 0.3s ease-out forwards; }
+    @keyframes zoomIn95 { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .slide-in-from-bottom-12 { animation: slideInFromBottom12 0.5s ease-out forwards; }
+    @keyframes slideInFromBottom12 { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="mesh-bg"></div>
+
+  <!-- Boot Screen -->
+  <div id="boot-screen" class="fixed inset-0 bg-[#0c2340] z-[1000] flex flex-col items-center justify-center text-white p-6">
+    <div class="scan-line"></div>
+    <div class="relative mb-12 animate-pulse">
+      <img src="https://i.ibb.co/3ykXv6Y2/67c00e66-7377-4475-816b-1667d6057a62.jpg" class="h-24 md:h-32 object-contain grayscale brightness-200" alt="Logo" />
+    </div>
+    <div class="w-64 h-1 bg-white/10 rounded-full overflow-hidden mb-6 relative">
+      <div id="boot-progress" class="absolute top-0 left-0 h-full bg-[#b39247] transition-all duration-[2000ms] w-0 ease-out"></div>
+    </div>
+    <div class="text-center space-y-2">
+      <p class="text-[10px] font-black uppercase tracking-[0.5em] text-[#b39247]">MoneyShop Secure Protocol</p>
+      <p class="text-xs font-bold text-white/40">تشفير الاتصال والتحقق من الأسعار اللحظية...</p>
+    </div>
+  </div>
+
+  <div id="app-content" class="min-h-screen flex-col pb-32 overflow-x-hidden selection:bg-indigo-100 relative opacity-0">
+    
+    <!-- Network Status Header -->
+    <div class="bg-[#0c2340] py-2 px-6 flex justify-center items-center gap-6 overflow-hidden">
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span><span class="text-[9px] font-black text-white/60 uppercase tracking-widest">بنكك (BOK): متاح</span></div>
+      <div class="w-[1px] h-3 bg-white/10"></div>
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span><span class="text-[9px] font-black text-white/60 uppercase tracking-widest">أوكاش: متاح</span></div>
+      <div class="hidden md:flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]"></span><span class="text-[9px] font-black text-white/60 uppercase tracking-widest">فوري: استقرار متوسط</span></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass sticky top-0 z-[100] py-4 px-6 md:px-12 border-b border-slate-200/50 shadow-sm transition-all duration-500">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="#" class="flex items-center gap-6 group cursor-pointer">
+          <div class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 group-hover:scale-105 transition-transform">
+            <img src="https://i.ibb.co/3ykXv6Y2/67c00e66-7377-4475-816b-1667d6057a62.jpg" alt="MONEYSHOP Logo" class="h-10 object-contain" />
+          </div>
+          <div class="hidden md:flex flex-col border-r pr-5 border-slate-200">
+            <span class="text-2xl font-[950] text-[#0c2340] leading-none tracking-tighter">MONEYSHOP</span>
+            <span class="text-[10px] font-black text-[#b39247] uppercase tracking-[0.4em] mt-1.5">Elite Global Exchange</span>
+          </div>
+        </a>
+        <div class="hidden lg:flex items-center gap-8 ml-8">
+          <a href="#rates-section" class="text-xs font-black text-[#0c2340]/60 hover:text-[#0c2340] uppercase tracking-widest transition-colors">الأسعار</a>
+          <a href="#converter-section" class="text-xs font-black text-[#0c2340]/60 hover:text-[#0c2340] uppercase tracking-widest transition-colors">المحول</a>
+          <a href="#tracker-section" class="text-xs font-black text-[#0c2340]/60 hover:text-[#0c2340] uppercase tracking-widest transition-colors">التتبع</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-44 px-8 overflow-hidden">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
+        <div class="text-right">
+          <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-[#0c2340]/5 border border-[#0c2340]/10 text-[#0c2340] text-[10px] font-black uppercase tracking-[0.2em] mb-8"><span class="w-2 h-2 rounded-full bg-[#b39247] animate-ping"></span>نظام التحويل البنكي الأول في المنطقة</div>
+          <h1 class="text-5xl md:text-7xl font-[950] mb-8 leading-[1.1] tracking-tighter text-[#0c2340]">حوّل أموالك <br/> <span class="text-[#b39247]">بمعايير بنكية</span> <br/> عالمية</h1>
+          <p class="text-slate-500 text-lg mb-12 max-w-xl leading-relaxed font-medium">نحن نوفر جسراً آمناً بين السودان والعالم. تحويلات فورية, أسعار تنافسية, وحماية مطلقة لكل عملية بضمان MONEYSHOP.</p>
+          <div class="flex flex-wrap gap-5">
+            <a href="#converter-section" class="bg-[#0c2340] text-white px-10 py-5 rounded-2xl text-sm font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">ابدأ التحويل الآن</a>
+            <a href="#tracker-section" class="bg-white border-2 border-slate-200 px-10 py-5 rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-slate-50 transition-all">تتبع حوالة سابقة</a>
+          </div>
+        </div>
+        <div id="converter-section">
+          <!-- Currency Converter Component -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-8 w-full flex-grow -mt-24 relative z-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-8 space-y-12">
+          <div id="admin-orders-section" data-tailwind-hidden></div>
+          <div id="rates-section">
+            <!-- Exchange Board Component -->
+          </div>
+          <div id="transfer-routes-section">
+            <!-- Transfer Routes Component -->
+          </div>
+        </div>
+        <div class="lg:col-span-4 space-y-12">
+          <div id="tracker-section">
+            <!-- Track Transfer Component -->
+          </div>
+          <div id="finance-insight-section">
+             <!-- Finance Insight Component -->
+          </div>
+          <div class="bg-gradient-to-br from-[#0c2340] to-[#1a3a5f] rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group border border-white/10">
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#b39247]/10 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
+            <h4 class="text-2xl font-[950] mb-4 tracking-tight">الدعم البنكي المباشر</h4>
+            <p class="text-white/50 text-xs font-bold leading-relaxed mb-10">للمبالغ الكبيرة وعقود الصرافة المؤسسية, يمكنكم التحدث مباشرة مع خبرائنا عبر الواتساب.</p>
+            <a id="whatsapp-support-link" href="#" target="_blank" class="block text-center w-full bg-[#b39247] text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:brightness-110 transition-all shadow-xl shadow-[#b39247]/20">تواصل مع مسؤول الصرافة</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-48 pt-32 pb-16 px-8 border-t border-slate-200 bg-white relative z-10">
+      <div class="max-w-7xl mx-auto flex flex-col items-center">
+        <div class="bg-slate-50 p-4 rounded-2xl mb-12 border border-slate-100"><img src="https://i.ibb.co/3ykXv6Y2/67c00e66-7377-4475-816b-1667d6057a62.jpg" class="h-16" alt="Footer Logo" /></div>
+        <p class="text-[#0c2340] font-[950] text-3xl mb-12 tracking-tighter">MONEYSHOP GLOBAL</p>
+        <div class="w-full grid grid-cols-2 md:grid-cols-4 gap-12 text-right border-b border-slate-100 pb-20 mb-12">
+          <div><p class="font-black text-[#0c2340] text-sm mb-6 uppercase tracking-widest">التحويلات</p><ul class="text-slate-400 text-[11px] font-bold space-y-4"><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">من تركيا</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">من الإمارات</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">من السعودية</a></li></ul></div>
+          <div><p class="font-black text-[#0c2340] text-sm mb-6 uppercase tracking-widest">الشركة</p><ul class="text-slate-400 text-[11px] font-bold space-y-4"><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">عن موني شوب</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">الخصوصية</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">الشروط</a></li></ul></div>
+          <div><p class="font-black text-[#0c2340] text-sm mb-6 uppercase tracking-widest">المساعدة</p><ul class="text-slate-400 text-[11px] font-bold space-y-4"><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">تتبع الحوالة</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">مركز الدعم</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">الفروع</a></li></ul></div>
+          <div><p class="font-black text-[#0c2340] text-sm mb-6 uppercase tracking-widest">حالة النظام</p><ul class="text-slate-400 text-[11px] font-bold space-y-4"><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">البنوك المتاحة</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">سرعة المعالجة</a></li><li><a href="#" class="hover:text-[#b39247] cursor-pointer transition-colors">الأمان</a></li></ul></div>
+        </div>
+        <div class="w-full flex flex-col md:flex-row justify-between items-center gap-6 text-slate-300 font-bold text-[9px] uppercase tracking-[0.2em]"><p>© 2024 MONEYSHOP ENTERPRISE. BANK-GRADE SECURITY VERIFIED.</p><div class="flex gap-10"><span class="flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-emerald-500"></span> SSL ENCRYPTED</span><span class="flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-emerald-500"></span> AML COMPLIANT</span></div></div>
+      </div>
+    </footer>
+    
+    <!-- WhatsApp Floating Button & Modal -->
+    <div class="fixed bottom-6 left-6 z-[600] flex flex-col items-end">
+        <div id="toast-notification" class="absolute bottom-24 left-0 mb-4" data-tailwind-hidden></div>
+        <div id="whatsapp-modal" class="bg-white rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] p-10 w-full max-w-[26rem] mb-6 border border-slate-100 text-right overflow-hidden relative" data-tailwind-hidden></div>
+        <button id="whatsapp-fab" class="w-20 h-20 rounded-[2.5rem] flex items-center justify-center shadow-[0_20px_60px_rgba(0,0,0,0.2)] hover:scale-110 active:scale-90 transition-all duration-700 group relative overflow-hidden" style="background: linear-gradient(135deg, #b39247, #8c7136);"></button>
+    </div>
+    
+    <!-- Quick Action Dock -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[500] flex items-center gap-1 p-1.5 bg-[#0c2340]/90 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl">
+      <a href="#rates-section" class="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-white/10 transition-all text-white group"><svg class="w-4 h-4 text-white/40 group-hover:text-[#b39247] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg><span class="text-[9px] font-black uppercase tracking-widest hidden md:inline">الأسعار</span></a>
+      <a href="#converter-section" class="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-white/10 transition-all text-white group"><svg class="w-4 h-4 text-white/40 group-hover:text-[#b39247] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg><span class="text-[9px] font-black uppercase tracking-widest hidden md:inline">المحول</span></a>
+      <a href="#tracker-section" class="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-white/10 transition-all text-white group"><svg class="w-4 h-4 text-white/40 group-hover:text-[#b39247] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg><span class="text-[9px] font-black uppercase tracking-widest hidden md:inline">تتبع</span></a>
+    </div>
+
+    <!-- Confirmation Modal Container -->
+    <div id="confirmation-modal-container" data-tailwind-hidden></div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- DATA & CONSTANTS ---
+  const WHATSAPP_NUMBER = "905346297086";
+  const BUSINESS_NAME = "MONEYSHOP للتحويلات المالية";
+  const LOGO_IMAGE = "https://i.ibb.co/3ykXv6Y2/67c00e66-7377-4475-816b-1667d6057a62.jpg";
+  const CROSS_RATES = { EUR: 0.92, TRY: 34.5, EGP: 49.5, AED: 3.67, SAR: 3.75, QAR: 3.64, LYD: 4.8 };
+  const INITIAL_RATES = [
+    { code: 'USD', name: 'دولار أمريكي', buy: 1250.00, sell: 1265.00, change: 0.5, flag: '🇺🇸' },
+    { code: 'EUR', name: 'يورو', buy: 1350.00, sell: 1370.00, change: 0.3, flag: '🇪🇺' },
+    { code: 'TRY', name: 'ليرة تركية', buy: 38.50, sell: 40.00, change: 0.1, flag: '🇹🇷' },
+    { code: 'EGP', name: 'جنيه مصري', buy: 26.00, sell: 28.00, change: -0.5, flag: '🇪🇬' },
+    { code: 'AED', name: 'درهم إماراتي', buy: 340.50, sell: 345.00, change: 0.2, flag: '🇦🇪' },
+    { code: 'SAR', name: 'ريال سعودي', buy: 333.30, sell: 338.00, change: -0.1, flag: '🇸🇦' },
+    { code: 'QAR', name: 'ريال قطري', buy: 343.40, sell: 347.50, change: 0.0, flag: '🇶🇦' },
+    { code: 'LYD', name: 'دينار ليبي', buy: 260.40, sell: 263.50, change: 0.0, flag: '🇱🇾' },
+  ];
+  const TRANSFER_ROUTES = [
+    { id: 'tr-sd', from: 'تركيا', to: 'السودان', description: 'تحويل مباشر وتسليم حسابات بنكية بالدولار', icon: '🇹🇷' },
+    { id: 'sd-tr', from: 'السودان', to: 'تركيا', description: 'استلام فوري في جميع مدن تركيا بالليرة والدولار', icon: '🇸🇩' },
+    { id: 'eg-sd', from: 'مصر', to: 'السودان', description: 'تحويل من مصري لسوداني وبالعكس فوري', icon: '🇪🇬' },
+    { id: 'sa-sd', from: 'السعودية', to: 'السودان', description: 'تحويل سريع من جميع البنوك السعودية', icon: '🇸🇦' },
+    { id: 'ae-sd', from: 'الإمارات', to: 'السودان', description: 'خدمة التحويل من دبي وأبوظبي للسودان', icon: '🇦🇪' },
+    { id: 'ly-sd', from: 'ليبيا', to: 'السودان', description: 'تحويل فوري بأسعار تنافسية', icon: '🇱🇾' },
+  ];
+  
+  let appState = {
+    rates: [],
+    previousRates: [],
+    transfers: [],
+    isEditing: false,
+    isWhatsAppOpen: false,
+    selectedRouteId: null,
+  };
+
+  const DOMElements = {
+    bootScreen: document.getElementById('boot-screen'),
+    bootProgress: document.getElementById('boot-progress'),
+    appContent: document.getElementById('app-content'),
+    exchangeBoardContainer: document.getElementById('rates-section'),
+    converterContainer: document.getElementById('converter-section'),
+    trackerContainer: document.getElementById('tracker-section'),
+    insightContainer: document.getElementById('finance-insight-section'),
+    adminOrdersContainer: document.getElementById('admin-orders-section'),
+    transferRoutesContainer: document.getElementById('transfer-routes-section'),
+    whatsappFab: document.getElementById('whatsapp-fab'),
+    whatsappModal: document.getElementById('whatsapp-modal'),
+    toastContainer: document.getElementById('toast-notification'),
+    confirmationModalContainer: document.getElementById('confirmation-modal-container'),
+    whatsappSupportLink: document.getElementById('whatsapp-support-link'),
+  };
+  
+  const loadFromLocalStorage = (key, defaultValue) => {
+    try {
+      const saved = localStorage.getItem(key);
+      return saved ? JSON.parse(saved) : defaultValue;
+    } catch (e) {
+      console.error(`Error loading from localStorage key "${key}":`, e);
+      return defaultValue;
+    }
+  };
+
+  const saveToLocalStorage = (key, value) => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      console.error(`Error saving to localStorage key "${key}":`, e);
+    }
+  };
+  
+  const showToast = (msg) => {
+    DOMElements.toastContainer.innerHTML = `
+      <div class="bg-[#0c2340] text-white px-6 py-3 rounded-2xl text-xs font-black shadow-2xl flex items-center gap-3 whitespace-nowrap border border-white/10 slide-in-from-bottom-12">
+        <span class="w-2 h-2 rounded-full bg-[#b39247] animate-ping"></span> ${msg}
+      </div>
+    `;
+    DOMElements.toastContainer.removeAttribute('data-tailwind-hidden');
+    setTimeout(() => DOMElements.toastContainer.setAttribute('data-tailwind-hidden', true), 3000);
+  };
+  
+  const showConfirmationModal = (title, message, onConfirm, refId = '') => {
+      const refIdHtml = refId ? `<span class="text-[#b39247] font-black">${refId}</span>` : '';
+      DOMElements.confirmationModalContainer.innerHTML = `
+          <div class="fixed inset-0 z-[600] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-md fade-in">
+              <div class="bg-white rounded-[3rem] p-10 max-w-md w-full shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-slate-100 zoom-in-95 relative overflow-hidden">
+                  <div class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
+                  <div class="text-center relative z-10">
+                      <div class="w-24 h-24 bg-indigo-50 text-indigo-600 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 shadow-inner">
+                          <svg class="w-12 h-12 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                      </div>
+                      <h3 class="text-3xl font-black text-slate-900 mb-3 tracking-tighter">${title}</h3>
+                      <p class="text-slate-500 text-sm font-bold mb-10 leading-relaxed px-4">${message.replace('{refId}', refIdHtml)}</p>
+                      <div class="flex flex-col gap-3">
+                          <button id="confirm-action-btn" class="w-full bg-[#0c2340] hover:bg-emerald-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-indigo-900/10 transition-all active:scale-95 flex items-center justify-center gap-3 group">
+                              <span>نعم, تم التسليم بنجاح</span>
+                          </button>
+                          <button id="cancel-action-btn" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-black py-5 rounded-2xl transition-all active:scale-95">إلغاء الأمر</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      `;
+      DOMElements.confirmationModalContainer.removeAttribute('data-tailwind-hidden');
+      document.getElementById('confirm-action-btn').addEventListener('click', () => { onConfirm(); closeConfirmationModal(); });
+      document.getElementById('cancel-action-btn').addEventListener('click', closeConfirmationModal);
+  };
+  
+  const closeConfirmationModal = () => {
+      DOMElements.confirmationModalContainer.setAttribute('data-tailwind-hidden', true);
+      DOMElements.confirmationModalContainer.innerHTML = '';
+  };
+
+  const renderExchangeBoard = () => {
+    const { rates, isEditing, previousRates } = appState;
+    const usdRate = rates.find(r => r.code === 'USD') || rates[0];
+    const flashState = {};
+    
+    if (previousRates && previousRates.length > 0) {
+        rates.forEach((rate, index) => {
+            const prevRate = previousRates[index];
+            if (rate.buy > prevRate.buy) flashState[`${rate.code}-buy`] = 'up';
+            if (rate.buy < prevRate.buy) flashState[`${rate.code}-buy`] = 'down';
+            if (rate.sell > prevRate.sell) flashState[`${rate.code}-sell`] = 'up';
+            if (rate.sell < prevRate.sell) flashState[`${rate.code}-sell`] = 'down';
+        });
+    }
+
+    const ratesHtml = rates.map((rate, idx) => {
+        const spread = Math.round((rate.sell - rate.buy) * 100) / 100;
+        const buyFlash = flashState[`${rate.code}-buy`];
+        const sellFlash = flashState[`${rate.code}-sell`];
+        const buyFlashClass = buyFlash === 'up' ? 'animate-flash-green' : buyFlash === 'down' ? 'animate-flash-red' : '';
+        const sellFlashClass = sellFlash === 'up' ? 'animate-flash-green' : sellFlash === 'down' ? 'animate-flash-red' : '';
+
+        return `
+            <div class="group relative bg-slate-50/50 rounded-3xl p-6 border-2 border-slate-100 hover:border-[#b39247]/50 hover:bg-white hover:shadow-2xl hover:shadow-[#0c2340]/5 transition-all duration-500 hover:-translate-y-1">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-md border border-slate-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-500"><span class="text-4xl">${rate.flag}</span></div>
+                        <div class="text-right">
+                            <h3 class="font-numbers font-black text-[#0c2340] text-2xl tracking-tighter">${rate.code}</h3>
+                            <p class="text-[9px] text-slate-400 font-black uppercase tracking-widest">${rate.name}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4 mb-6">
+                    <div class="p-4 bg-white rounded-2xl border border-slate-100 group-hover:border-emerald-100 transition-all ${buyFlashClass}">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">شراء (Buy)</p>
+                        ${isEditing ? `<input type="number" step="0.01" class="rate-input w-full bg-emerald-50 text-emerald-600 p-2 rounded-lg text-2xl font-numbers font-black text-center outline-none border border-transparent focus:border-emerald-300" data-index="${idx}" data-field="buy" value="${rate.buy}" />` : `<p class="font-numbers font-black text-emerald-600 text-3xl text-center">${rate.buy.toLocaleString()}</p>`}
+                    </div>
+                    <div class="p-4 bg-white rounded-2xl border border-slate-100 group-hover:border-[#0c2340]/20 transition-all ${sellFlashClass}">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">بيع (Sell)</p>
+                        ${isEditing ? `<input type="number" step="0.01" class="rate-input w-full bg-slate-100 text-[#0c2340] p-2 rounded-lg text-2xl font-numbers font-black text-center outline-none border border-transparent focus:border-slate-300" data-index="${idx}" data-field="sell" value="${rate.sell}" />` : `<p class="font-numbers font-black text-[#0c2340] text-3xl text-center">${rate.sell.toLocaleString()}</p>`}
+                    </div>
+                </div>
+                <div class="space-y-3 pt-4 border-t-2 border-dashed border-slate-200/80">
+                  <div class="flex justify-between items-center text-[10px] font-black"><span class="text-slate-400">الفارق (Spread)</span><span class="font-numbers text-[#b39247]">${spread.toFixed(2)} SDG</span></div>
+                  <div class="flex justify-between items-center text-[10px] font-black"><span class="text-slate-400">التغير اليومي</span><span class="font-numbers ${rate.change >= 0 ? 'text-emerald-500' : 'text-rose-500'}">${rate.change >= 0 ? '▲' : '▼'} ${Math.abs(rate.change)}%</span></div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    DOMElements.exchangeBoardContainer.innerHTML = `
+        <div class="bg-white rounded-[2.5rem] p-10 md:p-12 border border-slate-100 premium-shadow relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-3 h-full bg-[#0c2340]"></div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-12">
+                <div class="text-right">
+                    <div class="flex items-center gap-4 mb-3">
+                        <h2 class="text-3xl font-[950] text-[#0c2340] tracking-tight">نشرة الأسعار اليومية</h2>
+                        <span class="bg-[#b39247] text-white text-[9px] font-black px-3 py-1 rounded-lg shadow-lg">OFFICIAL</span>
+                    </div>
+                    <p id="last-updated" class="text-slate-400 text-[11px] font-black uppercase tracking-widest mr-1">آخر تحديث: ${new Date().toLocaleDateString('ar-SA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                </div>
+                <button id="edit-prices-btn" class="w-full md:w-auto px-6 py-3 rounded-xl transition-all font-black text-[10px] uppercase tracking-widest border-2 flex items-center justify-center gap-2 shadow-sm ${isEditing ? 'bg-rose-50 border-rose-200 text-rose-500' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'}">${isEditing ? 'إنهاء التعديل' : 'تعديل الأسعار'}</button>
+            </div>
+            ${isEditing ? `
+            <div class="mb-10 p-8 bg-indigo-50 border-2 border-dashed border-indigo-200 rounded-3xl fade-in">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                    <div><h4 class="font-black text-indigo-900 text-lg tracking-tight">لوحة التحكم الرئيسية</h4><p class="text-indigo-500 text-xs font-bold">تعديل سعر الدولار سيقوم بمزامنة باقي العملات تلقائياً.</p></div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center gap-5">
+                    <div class="flex flex-1 gap-3">
+                        <input type="number" step="0.01" class="w-full bg-white p-4 rounded-xl border-2 border-indigo-100 font-numbers text-sm font-bold outline-none focus:border-indigo-400 transition-colors" id="usd-buy-input" value="${usdRate.buy}" placeholder="شراء" />
+                        <input type="number" step="0.01" class="w-full bg-white p-4 rounded-xl border-2 border-indigo-100 font-numbers text-sm font-bold outline-none focus:border-indigo-400 transition-colors" id="usd-sell-input" value="${usdRate.sell}" placeholder="بيع" />
+                    </div>
+                    <button id="sync-all-btn" class="w-full sm:w-auto bg-[#0c2340] text-white px-10 py-4 rounded-xl text-xs font-black uppercase tracking-widest shadow-xl active:scale-95 transition-all">مزامنة الكل</button>
+                </div>
+            </div>` : ''}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${ratesHtml}</div>
+        </div>
+    `;
+    
+    document.getElementById('edit-prices-btn').addEventListener('click', handleToggleEdit);
+    if(isEditing) {
+        document.getElementById('sync-all-btn').addEventListener('click', handleSmartUpdate);
+        document.querySelectorAll('.rate-input').forEach(input => {
+            input.addEventListener('change', handleRateInputChange);
+        });
+    }
+  };
+
+  const renderCurrencyConverter = () => {
+      const { rates } = appState;
+      const optionsHtml = rates.map(r => `<option value="${r.code}">${r.code}</option>`).join('');
+      DOMElements.converterContainer.innerHTML = `
+        <div class="bg-white rounded-[2.5rem] p-10 border border-slate-100 premium-shadow relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#b39247] to-transparent"></div>
+            <div class="flex items-center gap-5 mb-10">
+                <div class="w-12 h-12 bg-slate-50 text-[#b39247] rounded-xl flex items-center justify-center border border-slate-100"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg></div>
+                <div class="text-right"><h4 class="font-black text-[#0c2340] text-xl tracking-tight">محرك عرض السعر الفوري</h4><p class="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">حساب دقيق حسب توفر السيولة الآن</p></div>
+            </div>
+            <div class="space-y-8">
+                <div class="p-8 bg-slate-50/50 rounded-3xl border border-slate-100 focus-within:bg-white focus-within:border-[#0c2340] transition-all">
+                    <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-4 mr-1">المبلغ المراد إرساله</label>
+                    <div class="flex items-center gap-6">
+                        <input id="converter-amount" type="number" class="flex-grow bg-transparent text-3xl font-numbers font-black outline-none text-[#0c2340]" value="100" />
+                        <div class="relative">
+                            <select id="converter-currency" class="bg-white border border-slate-200 rounded-xl px-4 py-2 font-black text-xs outline-none cursor-pointer appearance-none pr-10">${optionsHtml}</select>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#b39247]"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"></path></svg></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center -my-4 relative z-10"><div class="w-10 h-10 rounded-full bg-[#0c2340] text-white flex items-center justify-center shadow-lg border-4 border-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div></div>
+                <div class="bg-[#0c2340] rounded-[2rem] p-10 text-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#b39247]/10 to-transparent opacity-50"></div>
+                    <p class="text-white/40 text-[9px] font-black uppercase tracking-[0.3em] mb-4 relative z-10">إجمالي المبلغ المستلم (تقديري)</p>
+                    <div class="relative z-10"><p id="converter-result" class="text-white text-4xl font-numbers font-black tracking-tighter mb-2">0</p><span class="text-[10px] font-black text-[#b39247] uppercase tracking-widest">جنيه سوداني | SDG</span></div>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-3">
+                    <div class="flex justify-between items-center text-[10px] font-black text-slate-500 uppercase tracking-widest"><span>رسوم التحويل</span><span class="text-emerald-500">مجاناً (0%)</span></div>
+                    <div class="flex justify-between items-center text-[10px] font-black text-slate-500 uppercase tracking-widest"><span>سعر الصرف المعتمد</span><span id="converter-rate" class="font-numbers text-[#0c2340]">0 SDG</span></div>
+                    <div class="pt-3 border-t border-slate-200"><p class="text-[8px] text-slate-400 font-bold leading-relaxed">تنبيه: هذا السعر تقديري بناءً على متوسط السوق الآن. السعر النهائي يثبت عند لحظة تحويل المبلغ واستلام الإيصال من فريقنا.</p></div>
+                </div>
+            </div>
+        </div>
+      `;
+      document.getElementById('converter-amount').addEventListener('input', updateConverter);
+      document.getElementById('converter-currency').addEventListener('change', updateConverter);
+      updateConverter();
+  };
+  
+  const renderTransferRoutes = () => {
+    const routesHtml = TRANSFER_ROUTES.map(route => `
+        <div class="group/card relative bg-white p-6 rounded-3xl border border-slate-100 premium-shadow hover:border-[#b39247]/30 hover:shadow-2xl hover:shadow-[#b39247]/5 transition-all duration-500 hover:-translate-y-1">
+            <div class="flex items-center gap-5">
+                <div class="flex-shrink-0"><div class="text-3xl">${route.icon}</div></div>
+                <div class="flex-grow text-right">
+                    <h4 class="font-black text-lg text-slate-800 group-hover/card:text-[#b39247] transition-colors">${route.from}<span class="mx-2 text-slate-300 font-light">→</span>${route.to}</h4>
+                    <p class="text-xs text-slate-500 font-bold mt-1 leading-relaxed">${route.description}</p>
+                </div>
+                <div class="flex-shrink-0 pl-2">
+                    <button data-route-id="${route.id}" class="request-transfer-btn w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 group-hover/card:bg-[#b39247] group-hover/card:text-white transition-all duration-300 transform scale-90 group-hover/card:scale-100 opacity-70 group-hover/card:opacity-100" aria-label="اطلب تحويل من ${route.from} إلى ${route.to}"><svg class="w-5 h-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    DOMElements.transferRoutesContainer.innerHTML = `
+        <div class="mt-16 relative">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-12 gap-6 px-4">
+                <div class="text-right">
+                    <h3 class="text-3xl font-[950] text-slate-900 flex items-center gap-4"><div class="w-2 h-10 bg-gradient-to-b from-[#b39247] to-[#8c7136] rounded-full shadow-sm"></div>مسارات التحويل النشطة</h3>
+                    <p class="text-[12px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-2 mr-6">شبكة تحويل عالمية آمنة على مدار الساعة</p>
+                </div>
+                <div class="flex items-center gap-3 bg-emerald-50 px-6 py-3 rounded-full border border-emerald-100 shadow-sm animate-pulse"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></span><span class="text-[11px] font-black text-emerald-700 uppercase tracking-widest">تغطية مباشرة وشاملة</span></div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">${routesHtml}</div>
+        </div>
+    `;
+    document.querySelectorAll('.request-transfer-btn').forEach(btn => btn.addEventListener('click', (e) => handleRequestTransfer(e.currentTarget.dataset.routeId)));
+  };
+
+  const renderTracker = () => {
+    DOMElements.trackerContainer.innerHTML = `
+        <div class="bg-white rounded-[2.5rem] p-10 border transition-all duration-700 premium-shadow group border-slate-100">
+            <div class="relative z-10 text-right">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-[#0c2340] text-white rounded-xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
+                    <div>
+                        <h4 class="font-black text-[#0c2340] text-xl tracking-tight">تتبع اللوجستيات المالية</h4>
+                        <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">نظام المراقبة الموحد للحوالات</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="relative">
+                        <input id="tracker-input" type="text" placeholder="أدخل كود المرجعية (MS-XXXX)" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-sm font-black outline-none focus:bg-white focus:border-[#b39247] transition-all text-center tracking-widest font-numbers pl-16" />
+                    </div>
+                    <button id="track-btn" class="w-full bg-[#0c2340] text-white font-black py-4 rounded-2xl transition-all shadow-xl active:scale-[0.98] flex items-center justify-center gap-3 text-xs uppercase tracking-widest">استعلام عن الحالة</button>
+                    <p id="tracker-error" class="text-rose-500 text-[10px] font-black text-center mt-2 animate-pulse" data-tailwind-hidden></p>
+                    <div id="tracker-result-container" class="mt-8" data-tailwind-hidden></div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.getElementById('track-btn').addEventListener('click', handleTrackTransfer);
+    document.getElementById('tracker-input').addEventListener('input', (e) => e.target.value = e.target.value.toUpperCase());
+  };
+
+  const renderFinanceInsight = (insight, loading = false) => {
+      let contentHtml;
+      if (loading || !insight) {
+          contentHtml = `
+              <div class="py-20 flex flex-col items-center justify-center border-2 border-dashed border-white/10 rounded-[2.5rem] bg-white/[0.02] animate-pulse">
+                  <div class="w-12 h-12 border-4 border-[#b39247]/20 border-t-[#b39247] rounded-full animate-spin mb-6"></div>
+                  <p class="text-white/40 text-xs font-bold px-12 text-center leading-relaxed">جاري تشغيل خوارزميات الذكاء الاصطناعي لتحليل تذبذبات الجنيه السوداني والعملات العالمية...</p>
+              </div>
+          `;
+      } else {
+          const trendClass = insight.trend === 'صعودي' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : insight.trend === 'هبوطي' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' : 'bg-[#b39247]/10 text-[#b39247] border-[#b39247]/20';
+          const trendDotClass = insight.trend === 'صعودي' ? 'bg-emerald-400' : insight.trend === 'هبوطي' ? 'bg-rose-400' : 'bg-[#b39247]';
+          contentHtml = `
+              <div class="space-y-10 fade-in">
+                  <div class="flex flex-wrap items-center gap-4"><div class="px-6 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest flex items-center gap-2 border ${trendClass}"><span class="w-2 h-2 rounded-full ${trendDotClass} animate-pulse"></span>المسار الحالي: ${insight.trend}</div></div>
+                  <div class="relative"><span class="absolute -right-4 top-0 w-1 h-full bg-[#b39247] rounded-full"></span><p class="text-white text-2xl font-black leading-[1.4] tracking-tight">${insight.summary}</p></div>
+                  <div class="bg-white/[0.03] p-8 rounded-[2.5rem] border border-white/5 backdrop-blur-xl shadow-inner relative group/advice">
+                      <div class="flex items-center gap-3 mb-5"><div class="bg-[#b39247]/20 p-2 rounded-lg"><svg class="w-5 h-5 text-[#b39247]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg></div><p class="text-[#b39247] text-[11px] font-black uppercase tracking-[0.3em]">توصية الخبير التنفيذي</p></div>
+                      <p class="text-indigo-100/80 text-base font-bold leading-relaxed">${insight.advice}</p>
+                      <div class="mt-8 pt-8 border-t border-white/5 flex justify-between items-center text-[9px] font-black text-white/20 uppercase tracking-[0.2em]"><span>Analysis by MoneyShop AI</span><span>Security Verified</span></div>
+                  </div>
+              </div>
+          `;
+      }
+
+      DOMElements.insightContainer.innerHTML = `
+          <div class="bg-[#0c2340] rounded-[3rem] p-10 text-white shadow-[0_40px_100px_-20px_rgba(12,35,64,0.4)] relative overflow-hidden group border border-white/5">
+              <div class="absolute top-0 left-0 w-full h-full pointer-events-none"><div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div><div class="absolute bottom-0 left-0 w-48 h-48 bg-[#b39247]/10 rounded-full blur-3xl -ml-24 -mb-24"></div></div>
+              <div class="relative z-10 text-right">
+                  <div class="flex justify-between items-center mb-12">
+                      <div class="flex items-center gap-5">
+                          <div class="w-14 h-14 bg-[#b39247] text-white rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-[#b39247]/20 group-hover:scale-110 transition-transform"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                          <div><h3 class="font-black text-2xl tracking-tight">رادار السوق الذكي</h3><p class="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] mt-1">AI Market Intelligence</p></div>
+                      </div>
+                      <button id="refresh-insight-btn" class="w-12 h-12 rounded-2xl bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all active:scale-90 border border-white/5" title="تحديث التحليل"><svg class="w-6 h-6 text-[#b39247] ${loading ? 'animate-spin' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
+                  </div>
+                  ${contentHtml}
+              </div>
+          </div>
+      `;
+      document.getElementById('refresh-insight-btn').addEventListener('click', fetchInsights);
+  };
+  
+  const renderAdminOrders = () => {
+    if (appState.transfers.length === 0) {
+        DOMElements.adminOrdersContainer.setAttribute('data-tailwind-hidden', true);
+        return;
+    }
+    DOMElements.adminOrdersContainer.removeAttribute('data-tailwind-hidden');
+
+    const ordersHtml = appState.transfers.map(order => `
+        <div class="flex flex-col md:flex-row items-center gap-6 p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 hover:bg-white hover:border-indigo-100 hover:shadow-2xl hover:shadow-indigo-500/5 transition-all duration-500 group">
+            <div class="flex-grow text-right w-full">
+                <div class="flex items-center gap-4 mb-3">
+                    <span class="font-numbers font-black text-[#0c2340] text-2xl tracking-tighter group-hover:text-indigo-600 transition-colors">${order.refId}</span>
+                    <div class="px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest ${order.status === 'completed' ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600 animate-pulse'}">${order.status === 'completed' ? 'تم اكتمال الحوالة' : 'بانتظار التأكيد'}</div>
+                </div>
+                <div class="flex flex-wrap items-center gap-4 text-slate-400">
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span><span class="text-[11px] font-black">${order.route}</span></div>
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span><span class="font-numbers text-sm font-black text-slate-600">${parseFloat(order.amount).toLocaleString()} SDG</span></div>
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span><span class="text-[10px] font-bold">${new Date(order.date).toLocaleDateString('ar-SA')}</span></div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 w-full md:w-auto mt-6 md:mt-0">
+                ${(order.status === 'pending' || order.status === 'processing') ? `
+                <button data-ref-id="${order.refId}" class="admin-complete-btn flex-grow md:flex-none bg-[#0c2340] hover:bg-emerald-600 text-white px-8 py-4 rounded-2xl text-xs font-black transition-all shadow-xl hover:shadow-emerald-500/20 active:scale-95 flex items-center justify-center gap-3 group/btn">
+                    <svg class="w-5 h-5 group-hover/btn:scale-125 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>إنهاء الحوالة
+                </button>` : `
+                <div class="flex-grow md:flex-none
