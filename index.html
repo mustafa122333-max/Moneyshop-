@@ -89,8 +89,7 @@
 {
   "imports": {
     "react-dom/client": "https://esm.sh/react-dom@19.0.0-beta-26f2496093-20240514/client",
-    "react": "https://esm.sh/react@19.0.0-beta-26f2496093-20240514",
-    "@google/genai": "https://esm.sh/@google/genai"
+    "react": "https://esm.sh/react@19.0.0-beta-26f2496093-20240514"
   }
 }
 </script>
@@ -100,7 +99,6 @@
   <script type="module">
     import React, { useState, useEffect, useMemo, useRef } from 'react';
     import { createRoot } from 'react-dom/client';
-    import { GoogleGenAI } from "@google/genai";
 
     // --- CONSTANTS ---
     const WHATSAPP_NUMBER = "905346297086";
@@ -123,21 +121,6 @@
       { id: 'MS-1028', customerName: 'يوسف إبراهيم', amount: 800, fromCurrency: 'USD', toCurrency: 'SDG', status: 'pending', date: '2024-07-23' },
     ];
     
-    // --- GEMINI SERVICE ---
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    async function getMarketAnalysis(rates) {
-        const model = 'gemini-3-flash-preview';
-        const ratesString = rates.map(r => `${r.name} (${r.code}): Buy at ${r.buy}, Sell at ${r.sell}`).join('\\n');
-        const prompt = `You are a financial analyst providing insights for a currency exchange service in Sudan. Analyze the following exchange rates against the Sudanese Pound (SDG) and provide a brief, easy-to-understand market summary for a customer. Keep it concise (2-3 short paragraphs). Highlight any notable currency strength or weakness. Mention potential opportunities for the customer. The tone should be professional, helpful, and optimistic. Respond in Arabic. Current Rates:\\n${ratesString}`;
-        try {
-            const response = await ai.models.generateContent({ model, contents: prompt });
-            return response.text || "لم نتمكن من إنشاء تحليل في الوقت الحالي.";
-        } catch (error) {
-            console.error("Gemini API Error:", error);
-            return "حدث خطأ أثناء الاتصال بخدمة التحليل.";
-        }
-    }
-
     // --- HELPER COMPONENTS (DEFINED BEFORE APP) ---
 
     const OrderSummaryModal = ({ isOpen, onClose, order, convertedAmount }) => {
@@ -348,33 +331,6 @@
             )
         );
     };
-
-    const FinanceInsight = ({ rates }) => {
-        const [isLoading, setIsLoading] = useState(false);
-        const [analysis, setAnalysis] = useState('');
-        const [error, setError] = useState('');
-
-        const handleFetchAnalysis = async () => {
-            setIsLoading(true); setAnalysis(''); setError('');
-            try {
-                const result = await getMarketAnalysis(rates);
-                setAnalysis(result);
-            } catch (err) {
-                setError(err.message || 'An unknown error occurred.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        const LoadingSpinner = () => React.createElement('div', { className: "animate-spin rounded-full h-8 w-8 border-b-2 border-green-400 mx-auto" });
-
-        return React.createElement('div', { className: "p-6 rounded-2xl glass-ui text-center" },
-            React.createElement('button', { onClick: handleFetchAnalysis, disabled: isLoading, className: "px-6 py-3 rounded-lg font-bold bg-gradient-to-r from-teal-400 to-green-500 text-white disabled:opacity-50" }, isLoading ? '...جاري التحليل' : 'احصل على تحليل للسوق'),
-            isLoading && React.createElement('div', {className: "py-4"}, React.createElement(LoadingSpinner)),
-            error && React.createElement('p', { className: "mt-4 text-red-500" }, error),
-            analysis && React.createElement('p', { className: "mt-4 text-gray-300 text-right whitespace-pre-wrap leading-relaxed" }, analysis)
-        );
-    };
     
     const WhatsAppButton = () => {
         const message = `مرحباً ${BUSINESS_NAME}، أرغب في الاستفسار عن خدمة الصرافة.`;
@@ -439,12 +395,6 @@
                     React.createElement('div', { className: "max-w-7xl mx-auto px-4" },
                         React.createElement('h2', { className: "text-3xl font-bold text-white text-center mb-12" }, "تتبع حوالتك"),
                         React.createElement(TrackTransfer, { orders })
-                    )
-                ),
-                React.createElement('section', { id: "ai-analysis", className: "py-20" },
-                    React.createElement('div', { className: "max-w-4xl mx-auto px-4" },
-                        React.createElement('h2', { className: "text-3xl font-bold text-white text-center mb-12" }, "تحليل السوق بالذكاء الاصطناعي"),
-                        React.createElement(FinanceInsight, { rates })
                     )
                 )
             ),
