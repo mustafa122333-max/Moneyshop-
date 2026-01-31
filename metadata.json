@@ -1,0 +1,5 @@
+{
+  "name": "moneyshop price now",
+  "description": "A dynamic currency exchange website with an admin dashboard, built as a single-page application using React and Tailwind CSS, all consolidated into a single HTML file.",
+  "requestFramePermissions": []
+}
