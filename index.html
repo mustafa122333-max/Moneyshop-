@@ -3,39 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MoneyShop Exchange | تحويل أموال دولي سريع وآمن</title>
-  <link rel="icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3crect width='100' height='100' rx='20' fill='%232dd4bf'/%3e%3cpath d='M25 35h50l-15-15m15 15l-15 15M75 65H25l15 15m-15-15l15-15' stroke-linecap='round' stroke-linejoin='round' stroke-width='10' stroke='%23fff' fill='none'/%3e%3c/svg%3e">
+  <title>moneyshop price now | أفضل سعر صرف، الآن</title>
+  <link rel="icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3crect width='100' height='100' rx='20' fill='%230F172A'/%3e%3cpath d='M30 70l20-40 20 40' stroke='%2310B981' stroke-width='10' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M40 60h20' stroke='%2310B981' stroke-width='10' fill='none' stroke-linecap='round'/%3e%3c/svg%3e">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.2.1/css/flag-icons.min.css" integrity="sha512-cjqY_aApiwvATeC_aFreQxSUI7G+scTvwKAFM78CLG9qMan5NHphSqyBCZNulv8XbDoIurZpDItJuzJdEZlR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --background-dark: #111827; /* gray-900 */
-      --background-light: #1f2937; /* gray-800 */
-      --border-color: #374151; /* gray-700 */
-      --text-primary: #f9fafb; /* gray-50 */
-      --text-secondary: #9ca3af; /* gray-400 */
-      --accent-green: #2dd4bf; /* teal-400 */
-      --accent-green-dark: #14b8a6; /* teal-500 */
-      --accent-red: #f43f5e; /* rose-500 */
+      --background-light: #F8FAFC;
+      --background-card: rgba(255, 255, 255, 0.8);
+      --border-color: #e5e7eb;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --primary-color: #0F172A; /* Deep Midnight Blue */
+      --accent-color: #10B981; /* Electric Mint */
+      --accent-green: #16a34a;
+      --accent-red: #dc2626;
     }
-    html {
-      scroll-behavior: smooth;
+    :root.dark {
+        --background-light: #0F172A;
+        --background-card: #1E293B;
+        --border-color: #334155;
+        --text-primary: #F8FAFC;
+        --text-secondary: #94A3B8;
     }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Tajawal', sans-serif;
-      background-color: var(--background-dark);
+      font-family: 'Cairo', sans-serif;
+      background-color: var(--background-light);
       color: var(--text-secondary);
-      background-image: radial-gradient(circle at 1% 1%, var(--background-light) 0%, transparent 30%),
-                        radial-gradient(circle at 99% 99%, var(--background-light) 0%, transparent 30%);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .font-numbers { font-family: 'Poppins', sans-serif; }
-    .fi {
+    .flag-icon {
       border-radius: 9999px;
       background-size: cover;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 2px solid var(--border-color);
     }
     .fade-in {
         animation: fadeIn 0.5s ease-out forwards;
@@ -44,371 +49,96 @@
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .hero-gradient-bg {
-      background-color: transparent;
+    @keyframes fab-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 16px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .animate-fab-pulse { animation: fab-pulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1); }
+    .card {
+      background-color: var(--background-card);
+      border-radius: 1.25rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .dark .glass-card {
+        background: rgba(30, 41, 59, 0.6); /* dark slate */
+        border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+    .ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      padding: 8px 0;
+      background-color: var(--primary-color);
+      border-bottom: 1px solid #1E293B;
+      color: white;
+    }
+    .ticker {
+      display: inline-block;
+      white-space: nowrap;
+      animation: ticker-scroll 60s linear infinite;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 1.5rem;
     }
     @keyframes ticker-scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
     }
-    .ticker-animation {
-      display: inline-block;
-      animation: ticker-scroll 40s linear infinite;
+    @keyframes flash {
+      0% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
     }
-    @keyframes flash-up-bg {
-      from { background-color: rgba(45, 212, 191, 0.1); }
-      to { background-color: transparent; }
+    .animate-flash { animation: flash 0.7s ease-out; }
+    #hero {
+        background: linear-gradient(-45deg, #F8FAFC, #E0E7FF, #F8FAFC, #D1FAE5);
+        background-size: 400% 400%;
+        animation: animated-gradient 15s ease infinite;
+        transition: background 0.5s ease;
     }
-    @keyframes flash-down-bg {
-      from { background-color: rgba(244, 63, 94, 0.1); }
-      to { background-color: transparent; }
+    .dark #hero {
+        background: linear-gradient(-45deg, #0F172A, #1E293B, #0F172A, #111827);
+        background-size: 400% 400%;
+        animation: animated-gradient-dark 15s ease infinite;
     }
-    .flash-up {
-      animation: flash-up-bg 1s ease-out;
+    @keyframes animated-gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
-    .flash-down {
-      animation: flash-down-bg 1s ease-out;
+    @keyframes animated-gradient-dark {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
-    @keyframes fab-pulse {
-      0% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.7); }
-      70% { box-shadow: 0 0 0 12px rgba(45, 212, 191, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
-    }
-    .animate-fab-pulse {
-      animation: fab-pulse 2s infinite;
-    }
-    .glass-ui {
-      background-color: rgba(31, 41, 55, 0.6);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      border-radius: 1.25rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    @keyframes dash-flow {
+      to {
+        background-position: -32px 0;
+      }
     }
   </style>
 <script type="importmap">
 {
   "imports": {
-    "react-dom/client": "https://esm.sh/react-dom@19.0.0-beta-26f2496093-20240514/client",
-    "react": "https://esm.sh/react@19.0.0-beta-26f2496093-20240514"
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
 }
 </script>
 </head>
 <body>
   <div id="root"></div>
-  <script type="module">
-    import React, { useState, useEffect, useMemo, useRef } from 'react';
-    import { createRoot } from 'react-dom/client';
-
-    // --- CONSTANTS ---
-    const WHATSAPP_NUMBER = "905346297086";
-    const BUSINESS_NAME = "MoneyShop Exchange";
-    const INITIAL_RATES = [
-      { code: 'USD', name: 'دولار أمريكي', buy: 3620.00, sell: 3640.00, flagCode: 'us' },
-      { code: 'TRY', name: 'ليرة تركية', buy: 83.00, sell: 85.00, flagCode: 'tr' },
-      { code: 'SAR', name: 'ريال سعودي', buy: 965.00, sell: 975.00, flagCode: 'sa' },
-      { code: 'AED', name: 'درهم إماراتي', buy: 985.00, sell: 995.00, flagCode: 'ae' },
-      { code: 'EGP', name: 'جنيه مصري', buy: 75.00, sell: 77.00, flagCode: 'eg' },
-      { code: 'QAR', name: 'ريال قطري', buy: 990.00, sell: 1000.00, flagCode: 'qa' },
-      { code: 'EUR', name: 'يورو', buy: 3850.00, sell: 3900.00, flagCode: 'eu' },
-    ];
-    const SDG_RATE = { code: 'SDG', name: 'جنيه سوداني', buy: 1, sell: 1, flagCode: 'sd' };
-    const mockOrders = [
-      { id: 'MS-1024', customerName: 'أحمد علي', amount: 500, fromCurrency: 'USD', toCurrency: 'SDG', status: 'completed', date: '2024-07-20' },
-      { id: 'MS-1025', customerName: 'فاطمة محمد', amount: 250, fromCurrency: 'SAR', toCurrency: 'SDG', status: 'completed', date: '2024-07-21' },
-      { id: 'MS-1026', customerName: 'خالد حسن', amount: 1200, fromCurrency: 'AED', toCurrency: 'SDG', status: 'processing', date: '2024-07-22' },
-      { id: 'MS-1027', customerName: 'سارة عبدالله', amount: 150, fromCurrency: 'TRY', toCurrency: 'SDG', status: 'pending', date: '2024-07-23' },
-      { id: 'MS-1028', customerName: 'يوسف إبراهيم', amount: 800, fromCurrency: 'USD', toCurrency: 'SDG', status: 'pending', date: '2024-07-23' },
-    ];
-    
-    // --- HELPER COMPONENTS (DEFINED BEFORE APP) ---
-
-    const OrderSummaryModal = ({ isOpen, onClose, order, convertedAmount }) => {
-        const [isCopied, setIsCopied] = useState(false);
-        if (!isOpen || !order) return null;
-
-        const CopyIcon = () => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-4 w-4", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2 }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" }));
-        const CheckIcon = () => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-4 w-4 text-emerald-400", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 3 }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M5 13l4 4L19 7" }));
-        const WhatsAppIcon = () => React.createElement('svg', { className: "w-5 h-5", fill: "currentColor", viewBox: "0 0 24 24" }, React.createElement('path', { d: "M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.902-.539-5.587-1.528l-6.191 1.645v-.001zM7.59 17.556c.227.357.656.556 1.054.619.41.064.819.096 1.24.096 4.83 0 8.758-3.928 8.758-8.758 0-4.829-3.928-8.758-8.758-8.758-4.829 0-8.758 3.929-8.758 8.758.001 1.95.633 3.822 1.745 5.333l.25.374-1.143 4.156 4.25-1.119.355.233z" }));
-
-        const handleCopyCode = () => {
-            navigator.clipboard.writeText(order.id).then(() => {
-                setIsCopied(true);
-                setTimeout(() => setIsCopied(false), 2000);
-            });
-        };
-
-        const generateWhatsAppLink = () => {
-            const message = `\nمرحباً ${BUSINESS_NAME}،\n\nأرغب في تنفيذ طلب التحويل التالي:\n\n- *المبلغ المرسل:* ${order.amount.toLocaleString()} ${order.fromCurrency}\n- *المبلغ المستلم:* ${convertedAmount.toLocaleString()} ${order.toCurrency}\n- *كود التتبع:* ${order.id}\n\nيرجى تأكيد الطلب وتزويدي بالخطوات التالية.`;
-            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message.trim())}`;
-        };
-
-        return React.createElement('div', { className: "fixed inset-0 z-50 bg-gray-900/80 backdrop-blur-sm flex items-center justify-center p-4 fade-in", onClick: onClose },
-            React.createElement('div', { className: "glass-ui w-full max-w-md p-8", onClick: e => e.stopPropagation() },
-                React.createElement('h2', { className: "text-2xl font-[900] text-center text-white mb-2" }, "تم إنشاء طلبك بنجاح!"),
-                React.createElement('p', { className: "text-center text-gray-400 mb-6" }, "الرجاء المتابعة عبر واتساب لإكمال عملية التحويل."),
-                React.createElement('div', { className: "space-y-3 text-sm p-4 bg-gray-900/50 rounded-lg border border-gray-700" },
-                    React.createElement('div', { className: "flex justify-between items-center" }, React.createElement('span', { className: "text-gray-400" }, "سترسل:"), React.createElement('span', { className: "font-bold font-numbers text-gray-100" }, `${order.amount.toLocaleString()} ${order.fromCurrency}`)),
-                    React.createElement('div', { className: "flex justify-between items-center" }, React.createElement('span', { className: "text-gray-400" }, "سيستلمون (تقريباً):"), React.createElement('span', { className: "font-bold font-numbers text-green-400" }, `${convertedAmount.toLocaleString()} ${order.toCurrency}`)),
-                    React.createElement('div', { className: "pt-3 border-t border-gray-700 flex justify-between items-center" },
-                        React.createElement('span', { className: "text-gray-400" }, "كود التتبع الخاص بك:"),
-                        React.createElement('div', { className: "flex items-center gap-2" },
-                            React.createElement('span', { className: "font-bold font-numbers text-teal-400" }, order.id),
-                            React.createElement('button', { onClick: handleCopyCode, className: `flex items-center gap-1.5 text-xs font-bold py-1 px-2.5 rounded-md transition-colors ${isCopied ? 'bg-emerald-500/20 text-emerald-400' : 'bg-teal-500/10 text-teal-300 hover:bg-teal-500/20'}` },
-                                isCopied ? React.createElement(CheckIcon) : React.createElement(CopyIcon), isCopied ? 'تم النسخ!' : 'نسخ')
-                        )
-                    )
-                ),
-                React.createElement('div', { className: "mt-8 flex flex-col sm:flex-row gap-3" },
-                    React.createElement('button', { type: "button", onClick: onClose, className: "w-full px-6 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700" }, "إغلاق"),
-                    React.createElement('a', { href: generateWhatsAppLink(), target: "_blank", rel: "noopener noreferrer", className: "w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-lg" },
-                        React.createElement(WhatsAppIcon), React.createElement('span', null, "المتابعة إلى واتساب"))
-                )
-            )
-        );
-    };
-
-    const CurrencyConverter = ({ rates, onAddOrder }) => {
-        const allRates = useMemo(() => [SDG_RATE, ...rates], [rates]);
-        const [amount, setAmount] = useState(100);
-        const [fromCurrency, setFromCurrency] = useState('USD');
-        const [toCurrency, setToCurrency] = useState('SDG');
-        const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
-        const [finalOrder, setFinalOrder] = useState(null);
-        const fromRate = allRates.find(r => r.code === fromCurrency) ?? SDG_RATE;
-        const toRate = allRates.find(r => r.code === toCurrency) ?? SDG_RATE;
-
-        const convertedAmount = useMemo(() => {
-            if (!amount || isNaN(amount)) return 0;
-            let sdgValue = fromCurrency === 'SDG' ? amount : amount * fromRate.buy;
-            let finalAmount = toCurrency === 'SDG' ? sdgValue : sdgValue / toRate.sell;
-            return parseFloat(finalAmount.toFixed(2));
-        }, [amount, fromCurrency, toCurrency, fromRate, toRate]);
-        
-        const handleAmountChange = (e) => {
-            const value = parseFloat(e.target.value);
-            setAmount(isNaN(value) || value < 0 ? 0 : value);
-        };
-        
-        const handleSwapCurrencies = () => { setFromCurrency(toCurrency); setToCurrency(fromCurrency); };
-
-        const handleStartTransfer = () => {
-            if (!amount || amount <= 0) return;
-            const newOrder = { id: `MS-${Date.now().toString().slice(-6)}`, customerName: 'عميل جديد', amount, fromCurrency, toCurrency, status: 'pending', date: new Date().toISOString().split('T')[0] };
-            onAddOrder(newOrder);
-            setFinalOrder(newOrder);
-            setIsSummaryModalOpen(true);
-        };
-        const SwapIcon = () => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" }));
-
-        return React.createElement(React.Fragment, null,
-            React.createElement('div', { className: "p-6 md:p-8 glass-ui" },
-                React.createElement('div', { className: "space-y-4" },
-                    React.createElement('div', { className: "relative" },
-                        React.createElement('label', { htmlFor: "fromAmount", className: "block text-sm font-bold text-gray-400 mb-2 text-right" }, "أنت ترسل"),
-                        React.createElement('div', { className: "flex" },
-                            React.createElement('input', { id: "fromAmount", type: "number", value: amount, onChange: handleAmountChange, className: "w-full p-4 pr-32 text-2xl font-bold font-numbers text-gray-100 bg-gray-700/50 rounded-lg border-2 border-gray-600 focus:border-green-500" }),
-                            React.createElement('div', { className: "absolute inset-y-0 right-0 flex items-center pr-3" },
-                                React.createElement('select', { value: fromCurrency, onChange: (e) => setFromCurrency(e.target.value), className: "h-full bg-transparent text-gray-300 font-bold" },
-                                    allRates.map(rate => React.createElement('option', { className: "bg-gray-800", key: rate.code, value: rate.code }, rate.code))
-                                )
-                            )
-                        )
-                    ),
-                    React.createElement('div', { className: "flex justify-center" }, React.createElement('button', { onClick: handleSwapCurrencies, className: "p-2 text-gray-400" }, React.createElement(SwapIcon))),
-                    React.createElement('div', { className: "relative" },
-                        React.createElement('label', { htmlFor: "toAmount", className: "block text-sm font-bold text-gray-400 mb-2 text-right" }, "هم يستلمون"),
-                        React.createElement('div', { className: "flex" },
-                            React.createElement('input', { id: "toAmount", type: "text", value: convertedAmount.toLocaleString(), readOnly: true, className: "w-full p-4 pr-32 text-2xl font-extrabold font-numbers text-gray-100 bg-gray-800/50 rounded-lg" }),
-                             React.createElement('div', { className: "absolute inset-y-0 right-0 flex items-center pr-3" },
-                                React.createElement('select', { value: toCurrency, onChange: (e) => setToCurrency(e.target.value), className: "h-full bg-transparent text-gray-300 font-bold" },
-                                    allRates.map(rate => React.createElement('option', { className: "bg-gray-800", key: rate.code, value: rate.code }, rate.code))
-                                )
-                            )
-                        )
-                    )
-                ),
-                React.createElement('button', { onClick: handleStartTransfer, className: `mt-8 block w-full text-center bg-gradient-to-r from-teal-400 to-green-500 text-white font-bold py-4 rounded-lg text-lg ${!amount || amount <= 0 ? 'opacity-50 cursor-not-allowed' : ''}`, disabled: !amount || amount <= 0 }, "ابدأ التحويل الآن")
-            ),
-            React.createElement(OrderSummaryModal, { isOpen: isSummaryModalOpen, onClose: () => setIsSummaryModalOpen(false), order: finalOrder, convertedAmount: convertedAmount })
-        );
-    };
-    
-    const ExchangeBoard = ({ rates }) => {
-        return React.createElement('div', { className: "glass-ui overflow-hidden" },
-            React.createElement('div', { className: "grid grid-cols-4 text-center font-bold text-xs text-gray-400 uppercase p-4 bg-gray-900/70 border-b border-gray-700" },
-                React.createElement('div', { className: "text-right col-span-2 pl-4" }, "العملة"),
-                React.createElement('div', null, "نشتري (مقابل SDG)"),
-                React.createElement('div', null, "نبيع (مقابل SDG)")
-            ),
-            React.createElement('div', { className: "divide-y divide-gray-700/50" },
-                rates.map((rate, idx) => {
-                    return React.createElement('div', { key: rate.code, className: `grid grid-cols-4 items-center px-4 py-3 hover:bg-gray-700/30 fade-in`, style: { animationDelay: `${idx * 50}ms` } },
-                        React.createElement('div', { className: "col-span-2 flex items-center gap-4" },
-                            React.createElement('span', { className: `fi fi-${rate.flagCode} w-10 h-10` }),
-                            React.createElement('div', null,
-                                React.createElement('p', { className: "font-bold text-base text-gray-100" }, rate.name),
-                                React.createElement('p', { className: "font-numbers text-sm text-gray-400 font-bold" }, rate.code)
-                            )
-                        ),
-                        React.createElement('p', { className: "text-center font-numbers font-extrabold text-green-400 text-xl" }, rate.buy.toFixed(2)),
-                        React.createElement('p', { className: "text-center font-numbers font-extrabold text-red-500 text-xl" }, rate.sell.toFixed(2))
-                    );
-                })
-            )
-        );
-    };
-    
-    const HowItWorks = () => {
-        const Step = ({ icon, title, description }) => React.createElement('div', { className: "text-center" },
-            React.createElement('div', { className: "flex items-center justify-center w-16 h-16 mx-auto bg-green-500/10 text-green-300 rounded-full mb-4" }, icon),
-            React.createElement('h3', { className: "text-lg font-bold text-gray-100" }, title),
-            React.createElement('p', { className: "mt-2 text-sm text-gray-400" }, description)
-        );
-        const steps = [
-            { icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-8 w-8", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" })), title: "1. أنشئ طلبك", description: "املأ تفاصيل التحويل في النموذج." },
-            { icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-8 w-8", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" })), title: "2. تواصل معنا", description: "أرسل الطلب عبر واتساب للتأكيد." },
-            { icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-8 w-8", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 19l9 2-9-18-9 18 9-2zm0 0v-8" })), title: "3. استلم الأموال", description: "نوصل الأموال للمستلم بسرعة وأمان." }
-        ];
-        return React.createElement('section', { className: "py-28" },
-            React.createElement('div', { className: "max-w-7xl mx-auto px-4" },
-                React.createElement('div', { className: "text-center mb-16" },
-                    React.createElement('h2', { className: "text-3xl font-[900] text-gray-50" }, "كيف نعمل"),
-                    React.createElement('p', { className: "mt-3 text-md text-gray-400" }, "في 3 خطوات بسيطة.")
-                ),
-                React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-3 gap-12" },
-                    steps.map(step => React.createElement(Step, { key: step.title, ...step }))
-                )
-            )
-        );
-    };
-
-    const TrackTransfer = ({ orders }) => {
-        const [trackingCode, setTrackingCode] = useState('');
-        const [foundOrder, setFoundOrder] = useState(null);
-        const [error, setError] = useState('');
-        
-        const handleTrack = () => {
-            setError('');
-            setFoundOrder(null);
-            const order = orders.find(o => o.id.toLowerCase() === trackingCode.toLowerCase().trim());
-            if (order) {
-                setFoundOrder(order);
-            } else {
-                setError('لم يتم العثور على طلب بهذا الكود. يرجى التأكد من الرمز والمحاولة مرة أخرى.');
-            }
-        };
-
-        const StatusBadge = ({ status }) => {
-            const statusStyles = {
-                pending: 'bg-yellow-500/10 text-yellow-400',
-                processing: 'bg-blue-500/10 text-blue-400',
-                completed: 'bg-green-500/10 text-green-400',
-            };
-            const statusText = {
-                pending: 'قيد الانتظار',
-                processing: 'قيد التنفيذ',
-                completed: 'مكتمل',
-            };
-            return React.createElement('span', { className: `px-3 py-1 text-sm font-bold rounded-full ${statusStyles[status]}`}, statusText[status]);
-        };
-
-        return React.createElement('div', { className: "max-w-2xl mx-auto glass-ui p-8" },
-            React.createElement('div', { className: "flex flex-col sm:flex-row gap-3" },
-                React.createElement('input', { type: "text", value: trackingCode, onChange: (e) => setTrackingCode(e.target.value), className: "w-full p-4 text-center font-bold font-numbers text-gray-100 bg-gray-700/50 rounded-lg border-2 border-gray-600", placeholder: "أدخل كود التتبع هنا (e.g., MS-1024)" }),
-                React.createElement('button', { onClick: handleTrack, className: "px-8 py-4 rounded-lg font-bold bg-gradient-to-r from-teal-400 to-green-500 text-white" }, "تتبع")
-            ),
-            error && React.createElement('p', { className: "mt-4 text-center text-red-500 font-bold" }, error),
-            foundOrder && React.createElement('div', { className: "mt-6 p-4 bg-gray-900/50 rounded-lg fade-in" },
-                React.createElement('div', { className: "flex justify-between items-center" },
-                    React.createElement('p', null, React.createElement('span', { className: "text-gray-400" }, "الحالة:")),
-                    React.createElement(StatusBadge, { status: foundOrder.status })
-                ),
-                React.createElement('div', { className: "mt-2 flex justify-between items-center" },
-                    React.createElement('p', null, React.createElement('span', { className: "text-gray-400" }, "المبلغ: ")),
-                    React.createElement('p', { className: "font-bold font-numbers text-gray-100" }, `${foundOrder.amount.toLocaleString()} ${foundOrder.fromCurrency}`)
-                )
-            )
-        );
-    };
-    
-    const WhatsAppButton = () => {
-        const message = `مرحباً ${BUSINESS_NAME}، أرغب في الاستفسار عن خدمة الصرافة.`;
-        const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        return React.createElement('a', { href: whatsappLink, target: "_blank", rel: "noopener noreferrer", className: "fixed bottom-6 left-6 z-50 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg animate-fab-pulse" },
-            React.createElement('svg', { className: "w-8 h-8", fill: "currentColor", viewBox: "0 0 24 24" }, React.createElement('path', { d: "M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.902-.539-5.587-1.528l-6.191 1.645v-.001zM7.59 17.556c.227.357.656.556 1.054.619.41.064.819.096 1.24.096 4.83 0 8.758-3.928 8.758-8.758 0-4.829-3.928-8.758-8.758-8.758-4.829 0-8.758 3.929-8.758 8.758.001 1.95.633 3.822 1.745 5.333l.25.374-1.143 4.156 4.25-1.119.355.233z" }))
-        );
-    };
-
-    // --- MAIN APP COMPONENT ---
-    const App = () => {
-        const [rates, setRates] = useState(INITIAL_RATES);
-        const [orders, setOrders] = useState(() => {
-          try {
-            const stored = localStorage.getItem('moneyShopOrders');
-            return stored ? JSON.parse(stored) : mockOrders;
-          } catch { return mockOrders; }
-        });
-
-        useEffect(() => { localStorage.setItem('moneyShopOrders', JSON.stringify(orders)); }, [orders]);
-        
-        useEffect(() => {
-            const interval = setInterval(() => {
-                setRates(prev => prev.map(r => ({...r, buy: parseFloat((r.buy * (1+(Math.random()-0.5)*0.001)).toFixed(2)), sell: parseFloat((r.sell * (1+(Math.random()-0.5)*0.001)).toFixed(2)) })));
-            }, 5000);
-            return () => clearInterval(interval);
-        }, []);
-
-        const addOrder = (order) => setOrders(prev => [order, ...prev]);
-
-        return React.createElement('div', { className: "min-h-screen flex flex-col" },
-            React.createElement('header', { className: "sticky top-0 z-40 p-4 bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/60" }, 
-                React.createElement('div', { className: "max-w-7xl mx-auto flex justify-between items-center" },
-                    React.createElement('h1', {className:"text-white text-2xl font-bold"}, "MoneyShop"),
-                    React.createElement('nav', { className: "hidden md:flex gap-6 items-center" },
-                        React.createElement('a', {href: "#rates", className: "text-gray-300 hover:text-white transition"}, "الأسعار"),
-                        React.createElement('a', {href: "#how-it-works", className: "text-gray-300 hover:text-white transition"}, "كيف نعمل"),
-                        React.createElement('a', {href: "#track-transfer", className: "text-gray-300 hover:text-white transition"}, "تتبع حوالتك")
-                    )
-                )
-            ),
-            React.createElement('main', { className: "flex-grow" },
-                React.createElement('section', { id: "hero", className: "text-center py-28" },
-                    React.createElement('h1', { className: "text-4xl lg:text-6xl font-[900] text-gray-50" }, "ارسل الأموال بأمان وموثوقية"),
-                    React.createElement('p', { className: "text-lg text-gray-400 mt-4" }, "بأفضل سعر صرف في السوق."),
-                     React.createElement('a', { href: "#send-request", className: "mt-8 inline-block px-8 py-4 rounded-xl text-lg font-bold bg-gradient-to-r from-teal-400 to-green-500 text-white" }, "ابدأ الآن")
-                ),
-                React.createElement('section', { id: "rates", className: "py-20" },
-                    React.createElement('div', { className: "max-w-7xl mx-auto px-4" },
-                        React.createElement('h2', { className: "text-3xl font-bold text-white text-center mb-12" }, "أسعار الصرف اليومية"),
-                        React.createElement(ExchangeBoard, { rates })
-                    )
-                ),
-                React.createElement('section', { id: "how-it-works" }, React.createElement(HowItWorks)),
-                React.createElement('section', { id: "send-request", className: "py-20" },
-                    React.createElement('div', { className: "max-w-7xl mx-auto px-4" },
-                        React.createElement('h2', { className: "text-3xl font-bold text-white text-center mb-12" }, "أرسل طلبك الآن"),
-                        React.createElement('div', { className: "max-w-2xl mx-auto" }, React.createElement(CurrencyConverter, { rates, onAddOrder: addOrder }))
-                    )
-                ),
-                React.createElement('section', { id: "track-transfer", className: "py-20" },
-                    React.createElement('div', { className: "max-w-7xl mx-auto px-4" },
-                        React.createElement('h2', { className: "text-3xl font-bold text-white text-center mb-12" }, "تتبع حوالتك"),
-                        React.createElement(TrackTransfer, { orders })
-                    )
-                )
-            ),
-            React.createElement('footer', { className: "text-center text-gray-400 py-8 border-t border-gray-800" }, `© ${new Date().getFullYear()} MoneyShop Exchange. جميع الحقوق محفوظة.`),
-            React.createElement(WhatsAppButton)
-        );
-    };
-
-    // --- RENDER LOGIC ---
-    const container = document.getElementById('root');
-    if (container) {
-      const root = createRoot(container);
-      root.render(React.createElement(App));
-    }
-  </script>
+  <script type="module" src="./index.tsx"></script>
 </body>
 </html>
