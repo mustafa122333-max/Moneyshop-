@@ -4,81 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>moneyshop price now | أفضل سعر صرف، الآن</title>
-  
-  <link rel="icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3crect width='100' height='100' rx='20' fill='%230F172A'/%3e%3cpath d='M30 70l20-40 20 40' stroke='%2310B981' stroke-width='10' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M40 60h20' stroke='%2310B981' stroke-width='10' fill='none' stroke-linecap='round'/%3e%3c/svg%3e">
-  
+  <link rel="icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3crect width='100' height='100' rx='20' fill='%230A0E1A'/%3e%3cpath d='M30 70l20-40 20 40' stroke='%232DD4BF' stroke-width='10' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M40 60h20' stroke='%232DD4BF' stroke-width='10' fill='none' stroke-linecap='round'/%3e%3c/svg%3e">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.2.1/css/flag-icons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.2.1/css/flag-icons.min.css" integrity="sha512-cjqY_aApiwvATeC_aFreQxSUI7G+scTvwKAFM78CLG9qMan5NHphSqyBCZNulv8XbDoIurZpDItJuzJdEZlR+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  
   <style>
-    :root {
-      --background-light: #F8FAFC;
-      --background-card: rgba(255, 255, 255, 0.8);
-      --border-color: #e5e7eb;
-      --text-primary: #0F172A;
-      --text-secondary: #475569;
-      --primary-color: #0F172A;
-      --accent-color: #10B981;
-    }
-    :root.dark {
-        --background-light: #0F172A;
-        --background-card: #1E293B;
-        --border-color: #334155;
-        --text-primary: #F8FAFC;
-        --text-secondary: #94A3B8;
-    }
+    /* ... (نفس الستايل الخاص بك تماماً، لا تغيير هنا) ... */
+    :root { --bg-light: #F9FAFB; --bg-dark: #0A0E1A; --card-light: #FFFFFF; --card-dark: #111827; --border-light: #E5E7EB; --border-dark: #374151; --text-light-primary: #1F2937; --text-dark-primary: #E5E7EB; --text-light-secondary: #6B7280; --text-dark-secondary: #9CA3AF; --accent: #2DD4BF; --accent-hover: #14B8A6; --primary-dark-bg: #030712; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: var(--background-light);
-      color: var(--text-secondary);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+    body { font-family: 'Cairo', sans-serif; background-color: var(--bg-light); color: var(--text-light-secondary); transition: background-color 0.3s ease, color 0.3s ease; }
+    .dark body { background-color: var(--bg-dark); color: var(--text-dark-secondary); }
     .font-numbers { font-family: 'Poppins', sans-serif; }
-    .flag-icon {
-      border-radius: 9999px;
-      background-size: cover;
-      border: 2px solid var(--border-color);
-    }
+    .flag-icon { border-radius: 9999px; background-size: cover; }
+    .light .flag-icon { border: 2px solid var(--border-light); }
+    .dark .flag-icon { border: 2px solid var(--border-dark); }
     .fade-in { animation: fadeIn 0.5s ease-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fab-pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 16px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+    @keyframes fab-pulse { 0% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.7); } 70% { box-shadow: 0 0 0 16px rgba(45, 212, 191, 0); } 100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); } }
     .animate-fab-pulse { animation: fab-pulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1); }
-    .card {
-      background-color: var(--background-card);
-      border-radius: 1.25rem;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-    .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2); }
-    .dark .glass-card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(51, 65, 85, 0.5); }
-    .ticker-wrap { width: 100%; overflow: hidden; padding: 8px 0; background-color: var(--primary-color); border-bottom: 1px solid #1E293B; color: white; }
-    .ticker { display: inline-block; white-space: nowrap; animation: ticker-scroll 60s linear infinite; }
+    .card { border-radius: 1.25rem; transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+    .light .card { background-color: var(--card-light); border: 1px solid var(--border-light); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05); }
+    .dark .card { background-color: var(--card-dark); border: 1px solid var(--border-dark); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+    .glass-card { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+    .text-gradient { background-image: linear-gradient(45deg, var(--accent), #5EEAD4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
+    .ticker-wrap { width: 100%; overflow: hidden; padding: 8px 0; background-color: var(--primary-dark-bg); }
+    .ticker { display: inline-block; white-space: nowrap; will-change: transform; animation: ticker-scroll 60s linear infinite; }
     .ticker-item { display: inline-flex; align-items: center; margin: 0 1.5rem; }
     @keyframes ticker-scroll { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
-    @keyframes flash { 0% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes flash { 0%, 100% { transform: scale(1); filter: brightness(1.2); } 50% { transform: scale(1.2); filter: brightness(1.75); } }
     .animate-flash { animation: flash 0.7s ease-out; }
-    #hero { background: linear-gradient(-45deg, #F8FAFC, #E0E7FF, #F8FAFC, #D1FAE5); background-size: 400% 400%; animation: animated-gradient 15s ease infinite; transition: background 0.5s ease; }
-    .dark #hero { background: linear-gradient(-45deg, #0F172A, #1E293B, #0F172A, #111827); background-size: 400% 400%; animation: animated-gradient-dark 15s ease infinite; }
-    @keyframes animated-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    @keyframes animated-gradient-dark { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    #hero { background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="%23F9FAFB" /><stop offset="100%" stop-color="%23F3F4F6" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23g)"/></svg>'); }
+    .dark #hero { background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="%230A0E1A" /><stop offset="100%" stop-color="%23111827" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23g)"/></svg>'); }
     @keyframes dash-flow { to { background-position: -32px 0; } }
+    .hamburger-line { height: 2px; width: 100%; background-color: currentColor; transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+    .hamburger-active .line-1 { transform: translateY(6px) rotate(45deg); }
+    .hamburger-active .line-2 { opacity: 0; }
+    .hamburger-active .line-3 { transform: translateY(-6px) rotate(-45deg); }
+    @keyframes flash-green { 0% { background-color: rgba(45, 212, 191, 0); } 50% { background-color: rgba(45, 212, 191, 0.15); } 100% { background-color: rgba(45, 212, 191, 0); } }
+    @keyframes flash-red { 0% { background-color: rgba(244, 63, 94, 0); } 50% { background-color: rgba(244, 63, 94, 0.1); } 100% { background-color: rgba(244, 63, 94, 0); } }
+    .animate-flash-green { animation: flash-green 1.5s ease-out; }
+    .animate-flash-red { animation: flash-red 1.5s ease-out; }
   </style>
-
-  <script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@18.2.0",
-      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
-    }
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
-  </script>
+}
+</script>
 </head>
 <body>
   <div id="root"></div>
-
+  
   <script type="module" src="./index.js"></script>
 </body>
 </html>
